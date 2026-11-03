@@ -31,11 +31,11 @@ max_selections=5
 if ingredients_list:
   ingredients_string = ''
 for fruit_chosen in ingredients_list:
-ingredients_string += fruit_chosen + ' '
+  ingredients_string += fruit_chosen + ' '
 # Submit button
 time_to_insert = st.button('Submit Order')
 if time_to_insert:
-my_insert_stmt = """ insert into smoothies.public.orders(ingredients, name_on_order)
+  my_insert_stmt = """ insert into smoothies.public.orders(ingredients, name_on_order)
 values ('""" + ingredients_string + """','""" + name_on_order + """')"""
 #st.write(my_insert_stmt)
 #st.stop()
