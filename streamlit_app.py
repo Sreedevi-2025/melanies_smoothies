@@ -43,4 +43,5 @@ if time_to_insert:
   st.success('Your Smoothie is ordered, ' + name_on_order + '!', icon='✅')
 import requests
 smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
-st.text(smoothiefroot_response) 
+st.write(smoothiefroot_response) 
+st.write(smoothiefroot_response.status_code) 
