@@ -33,17 +33,28 @@ if ingredients_list:
   ingredients_string = ''
   for fruit_chosen in ingredients_list:
     ingredients_string += fruit_chosen + ' '
-    st.subheader(fruit_chosen +'Nutrition Information')
-  # Submit button
-  time_to_insert = st.button('Submit Order')
-  if time_to_insert:
-    my_insert_stmt = """ insert into smoothies.public.orders(ingredients, name_on_order)
-    values ('""" + ingredients_string + """','""" + name_on_order + """')"""
-    #st.write(my_insert_stmt)
-    #st.stop()
-    session.sql(my_insert_stmt).collect()
-    st.success('Your Smoothie is ordered, ' + name_on_order + '!', icon='✅')
-    smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/" + fruit_chosen)
-    sf_df = st.dataframe(data=smoothiefroot_response.json(),use_container_width=True)
+    st.subheader(fruit_chosen + ' Nutrition Information')
+    smoothiefroot_response = requests.get(
+    "https://my.smoothiefroot.com/api/fruit/" + fruit_chosen.lower()
+    ) 
+    if smoothiefroot_response.status_code == 200:
+      st.dataframe(
+      data=smoothiefroot_response.json(),
+      use_container_width=True
+      )
+    else:
+      st.write('Sorry, that fruit is not in our database.')
+# Submit button
+time_to_insert = st.button('Submit Order')
+if time_to_insert:
+my_insert_stmt = """
+insert into smoothies.public.orders(ingredients, name_on_order)
+values ('""" + ingredients_string + """','""" + name_on_order + """')
+"""
+session.sql(my_insert_stmt).collect()
+st.success(
+'Your Smoothie is ordered, ' + name_on_order + '!',
+icon='✅'
+)
 
  
