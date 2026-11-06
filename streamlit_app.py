@@ -22,7 +22,7 @@ session = cnx.session()
 my_dataframe = (session.table("SMOOTHIES.PUBLIC.FRUIT_OPTIONS").select(col("FRUIT_NAME"),col('SEARCH_ON')).to_pandas())
 #st.dataframe(data=my_dataframe,use_container_width=True)
 #st.stop()
-pd_df = my_dataframe.to_pandas()
+pd_df = my_dataframe
 #st.dataframe(pd_df)
 #st.stop()
 #Multi-select list
